@@ -1,6 +1,6 @@
 # Evidencia — Ítem 3
 
-Este directorio resume la evidencia validada contenida en `ITEM3.zip`.
+Este directorio resume la evidencia validada contenida en `ITEM3.zip` y las verificaciones adicionales ejecutadas sobre sus CSV.
 
 ## Contenido del archivo entregado
 
@@ -39,6 +39,27 @@ El ZIP contiene:
 | Espera máxima / índice de inanición | 3.00 s | 5.19 s |
 | Equidad de Jain | 1.000 | 1.000 |
 | Máximo de elementos observados en cola | 2 | 3 |
+| Violaciones de exclusión mutua | **0** | **0** |
+
+## Exclusión mutua
+
+Se ejecutó `analisis/verificar_exclusion.py` sobre los CSV reales de ambas políticas.
+
+Resultado:
+
+```text
+FIFO: VIOLACIONES DE EXCLUSION MUTUA: 0 -> CERO (cumple)
+Prioridad estática: VIOLACIONES DE EXCLUSION MUTUA: 0 -> CERO (cumple)
+```
+
+El detalle completo está en `verificacion_exclusion_resultados.txt`.
+
+Además:
+
+- FIFO: 4 goals distintos y los 4 clientes aparecen como ejecutores.
+- Prioridad: 4 goals distintos y los 4 clientes aparecen como ejecutores.
+- Máximo informado por mensaje: 1 goal ejecutándose.
+- Salto máximo observado en `joint_states`: 1.000 rad (FIFO) y 0.700 rad (prioridad).
 
 ## Orden de ejecución observado
 
@@ -70,8 +91,10 @@ total_rejected = 0
 total_completed = 4
 ```
 
-## Qué queda fuera de este ZIP
+## Predicción previa de P95
 
-Este archivo no contiene una salida independiente de `verificar_exclusion.py` ni una salida fechada de `predecir_p95.py`. Por tanto, esas evidencias no deben declararse como adjuntadas solo a partir de este ZIP.
+El repositorio ya incluye `analisis/predecir_p95.py`. El script simula FIFO y prioridad usando directamente el `arm_broker/politicas.py` del equipo, por lo que para producir una salida válida debe ejecutarse contra esa versión real del paquete.
+
+Mientras `src/arm_broker` no esté versionado en este repositorio, no se registra aquí una salida numérica inventada o calculada con una política reconstruida.
 
 Los SHA-256 del ZIP y de sus archivos están en `manifest_sha256.txt`.
