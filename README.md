@@ -56,6 +56,7 @@ bash scripts/analyze_item3.sh
 La guía completa de comandos depurados está en:
 
 - [`docs/COMANDOS_EJECUCION.md`](docs/COMANDOS_EJECUCION.md)
+- [`docs/CAMBIOS_IMPLEMENTADOS.md`](docs/CAMBIOS_IMPLEMENTADOS.md)
 
 Los scripts no esconden la configuración de red: todos leen `config/network.env`, que se crea a partir de `config/network.env.example`.
 
@@ -84,5 +85,7 @@ Las corridas válidas fueron `fifo_bag_ok` y `prioridad_bag_ok`. Las primeras ca
 Los resultados validados muestran 4 goals aceptados, **0 rechazados y 4 completados** en ambas políticas. FIFO obtuvo 2.37 s de espera media y P95 de 3.00 s; prioridad estática obtuvo 3.60 s y P95 de 5.19 s.
 
 ## Estado del repositorio
+
+Las versiones finales de `broker.py`, `fk.py` y `politicas.py` que deben publicarse son las recuperadas del workspace de la Jetson donde se realizaron las pruebas. Las copias originales del kit con `NotImplementedError` no representan la implementación final del Grupo 7.
 
 La automatización para preparar clientes ya está incluida. Para que una Raspberry quede completamente reproducible solo desde GitHub, todavía debe mantenerse versionado el paquete `src/arm_broker_interfaces` (y el resto del código fuente exigido por la entrega). Mientras tanto, `setup_client.sh --copy-from-jetson` reproduce el método de copia usado en el laboratorio.
