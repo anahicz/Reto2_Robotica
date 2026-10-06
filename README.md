@@ -1,66 +1,69 @@
 # Reto 2 — El Turno del Brazo
 
-Repositorio del RB-2 de Robótica: cinemática directa y acceso concurrente al JetCobot con ROS 2.
+Repositorio del RB-2 de Robótica (ESAN, Grupo 7 · Sección S003).
 
-## Autoría y responsables — Grupo 7 · Sección S003
+## Estructura
 
-El repositorio distingue explícitamente entre el **andamiaje base entregado por el curso** y los bloques implementados por el equipo.
+```text
+ITEMS/
+├── item1/   # Cinemática directa y verificación FK
+├── item2/   # arm_broker, interfaces y evidencias de admisión
+├── item3/   # Medición bajo contención, análisis y evidencia
+└── item4/   # Auditoría de la IK del firmware
 
-Responsables oficiales por ítem:
+config/      # FastDDS y variables de red
+scripts/     # Preparación, diagnóstico y ejecución
+docs/        # Autoría, cambios y comandos
+informe/     # Informe técnico
+```
 
-- **Ítem 1 — Encargado:** Vara Vargas Valentino Uziel
-- **Ítem 2 — Encargada:** Ramirez Quevedo Karen Noelia
-- **Ítem 3 — Encargada:** Anahi Cortez Chinchay
-- **Ítem 4 — Encargado:** Sebastian Pedro Aguirre Acosta
+Responsables oficiales:
+- Ítem 1 — Vara Vargas Valentino Uziel
+- Ítem 2 — Ramirez Quevedo Karen Noelia
+- Ítem 3 — Anahi Cortez Chinchay
+- Ítem 4 — Sebastian Pedro Aguirre Acosta
 
-La matriz completa de atribución y las cabeceras que deben conservarse en el código final están en [`docs/AUTORIA_Y_RESPONSABLES.md`](docs/AUTORIA_Y_RESPONSABLES.md).
+La atribución completa está en `docs/AUTORIA_Y_RESPONSABLES.md`.
 
-## Ejecución rápida en una Raspberry nueva
+## Preparar una Raspberry nueva
+
+La Raspberry debe tener Ubuntu/ROS 2 Humble y Git. El proyecto se prepara con dos pasos:
 
 ```bash
 git clone https://github.com/anahicz/Reto2_Robotica.git
-cd Reto2_Robotica
-cp config/network.env.example config/network.env
-nano config/network.env
+cd Reto2_Robotica && bash scripts/bootstrap_raspberry.sh
 ```
 
-Después de colocar `super_client_configuration_file.xml` en la ruta configurada:
+El script:
+1. crea `config/network.env` si no existe;
+2. copia el XML FastDDS real a `$HOME/super_client_configuration_file.xml`;
+3. instala `arm_broker_interfaces` en `~/ros2_ws/src`;
+4. compila la interfaz;
+5. reinicia el daemon de ROS 2;
+6. comprueba que la interfaz esté disponible.
+
+Si el repositorio ya está clonado:
 
 ```bash
-bash scripts/setup_client.sh
+cd ~/Reto2_Robotica
+bash scripts/sync_raspberry.sh
+```
+
+Para cargar el entorno en una terminal:
+
+```bash
 source scripts/ros_env.sh
+```
+
+Para verificar discovery:
+
+```bash
 bash scripts/check_client.sh
 ```
 
-Para mandar un goal:
+## Configuración validada
 
-```bash
-bash scripts/send_goal.sh CLIENTE PRIORIDAD q1 q2 q3 q4 q5 q6
-```
-
-Para grabar las corridas del ítem 3:
-
-```bash
-bash scripts/record_bag.sh fifo
-bash scripts/record_bag.sh prioridad
-```
-
-Para exportar CSV y generar la figura comparativa:
-
-```bash
-bash scripts/analyze_item3.sh
-```
-
-## Documentación
-
-La guía completa de comandos depurados está en:
-
-- [`docs/COMANDOS_EJECUCION.md`](docs/COMANDOS_EJECUCION.md)
-- [`docs/CAMBIOS_IMPLEMENTADOS.md`](docs/CAMBIOS_IMPLEMENTADOS.md)
-
-Los scripts no esconden la configuración de red: todos leen `config/network.env`, que se crea a partir de `config/network.env.example`.
-
-## Configuración usada en la corrida documentada
+La corrida documentada usó:
 
 ```text
 ROS_DOMAIN_ID=112
@@ -69,23 +72,27 @@ RMW_IMPLEMENTATION=rmw_fastrtps_cpp
 ROS_DISCOVERY_SERVER=172.51.1.17:11811
 ```
 
-Estos valores deben revisarse si cambia la Jetson, el número de equipo o la red del laboratorio.
+El XML usado realmente está versionado en `config/super_client_configuration_file.xml`.
 
-## Evidencia del ítem 3
+## Política de prioridad
 
-La evidencia validada extraída de `ITEM3.zip` está documentada en:
+El código recuperado del workspace compilado usa:
 
-- [`evidencia/item3/README.md`](evidencia/item3/README.md)
-- [`evidencia/item3/metricas_resultados.txt`](evidencia/item3/metricas_resultados.txt)
-- [`evidencia/item3/resumen_validacion.csv`](evidencia/item3/resumen_validacion.csv)
-- [`evidencia/item3/manifest_sha256.txt`](evidencia/item3/manifest_sha256.txt)
+```text
+prioridad efectiva = prioridad + espera_s / tau
+tau = 8.0 s
+```
 
-Las corridas válidas fueron `fifo_bag_ok` y `prioridad_bag_ok`. Las primeras capturas que contenían únicamente `/rosout` fueron descartadas. Antes de grabar, `scripts/record_bag.sh` comprueba que estén presentes `/arm/queue_state`, `/joint_states` y `/rosout`.
+Por tanto, la política `prioridad` implementada es **prioridad con envejecimiento (aging)**. En la corrida observada las esperas fueron cortas respecto a `tau`, por lo que el orden coincidió con prioridad numérica descendente, pero la implementación activa sí incluía aging.
 
-Los resultados validados muestran 4 goals aceptados, **0 rechazados y 4 completados** en ambas políticas. FIFO obtuvo 2.37 s de espera media y P95 de 3.00 s; prioridad estática obtuvo 3.60 s y P95 de 5.19 s.
+## Estado
 
-## Estado del repositorio
+Ya están versionados:
+- código final de `arm_broker`;
+- `arm_broker_interfaces`;
+- código de Ítems 1 y 4 extraído del informe;
+- XML FastDDS real;
+- evidencias de rechazos del Ítem 2;
+- bags, CSV, métricas, figura y verificación de exclusión del Ítem 3.
 
-Las versiones finales de `broker.py`, `fk.py` y `politicas.py` que deben publicarse son las recuperadas del workspace de la Jetson donde se realizaron las pruebas. Las copias originales del kit con `NotImplementedError` no representan la implementación final del Grupo 7.
-
-La automatización para preparar clientes ya está incluida. Para que una Raspberry quede completamente reproducible solo desde GitHub, todavía debe mantenerse versionado el paquete `src/arm_broker_interfaces` (y el resto del código fuente exigido por la entrega). Mientras tanto, `setup_client.sh --copy-from-jetson` reproduce el método de copia usado en el laboratorio.
+Pendientes de entrega externa: video de 3 minutos y, si el docente la exige, repetición con la traza CSV oficial.
