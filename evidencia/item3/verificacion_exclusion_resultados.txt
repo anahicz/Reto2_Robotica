@@ -1,0 +1,21 @@
+=== FIFO ===
+Archivo               : fifo_csv/queue_state.csv
+Mensajes queue_state  : 198  (39.4 s grabados)
+Goals distintos       : 4
+Clientes que ejecutaron: ['Anahi', 'Karen', 'Sebastian', 'Valentino']
+Mensajes con brazo ocupado: 41 de 198
+Máximo de goals ejecutándose a la vez en un mensaje: 1 (el mensaje solo tiene un executing_goal_id)
+joint_states          : 396 muestras, salto máximo entre muestras 1.000 rad
+
+VIOLACIONES DE EXCLUSION MUTUA: 0 -> CERO (cumple)
+
+=== PRIORIDAD ESTATICA ===
+Archivo               : prioridad_csv/queue_state.csv
+Mensajes queue_state  : 119  (23.6 s grabados)
+Goals distintos       : 4
+Clientes que ejecutaron: ['Anahi', 'Karen', 'Sebastian', 'Valentino']
+Mensajes con brazo ocupado: 40 de 119
+Máximo de goals ejecutándose a la vez en un mensaje: 1 (el mensaje solo tiene un executing_goal_id)
+joint_states          : 237 muestras, salto máximo entre muestras 0.700 rad
+
+VIOLACIONES DE EXCLUSION MUTUA: 0 -> CERO (cumple)
