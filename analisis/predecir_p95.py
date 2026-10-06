@@ -1,4 +1,18 @@
 #!/usr/bin/env python3
+# =============================================================================
+# UNIVERSIDAD ESAN · ROBÓTICA (08079)
+# RETO DEL BRAZO 2 — EL TURNO DEL BRAZO
+# Grupo 7 · Sección S003
+#
+# Encargados de la evidencia y validación del Ítem 3:
+#   - Anahi Cortez Chinchay
+#   - Ramirez Quevedo Karen Noelia
+#   - Sebastian Pedro Aguirre Acosta
+#   - Vara Vargas Valentino Uziel
+#
+# Esta cabecera identifica responsables de ejecución/validación, no pretende
+# atribuir al grupo el andamiaje base entregado por el curso.
+# =============================================================================
 """Predice la espera por política ANTES de medir (simulación, sin ROS ni robot).
 
     python3 predecir_p95.py --src ~/Desktop/ros2_ws/src/arm_broker --poses 40
