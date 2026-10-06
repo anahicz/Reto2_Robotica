@@ -25,8 +25,13 @@ fi
 
 cp -f "${ROOT}/config/super_client_configuration_file.xml"       "${FASTRTPS_DEFAULT_PROFILES_FILE}"
 
+# Los setup.bash de ROS/ament pueden leer variables aún no definidas.
+# Desactivamos nounset solo durante el source y lo reactivamos después.
+set +u
 # shellcheck disable=SC1090
 source "/opt/ros/${ROS_DISTRO}/setup.bash"
+set -u
+
 mkdir -p "${WORKSPACE}/src"
 
 REPO_ITEM2="${ROOT}/ITEMS/item2/codigo"
@@ -44,8 +49,11 @@ fi
 cd "${WORKSPACE}"
 colcon build --packages-select "${PACKAGES[@]}"
 
+set +u
 # shellcheck disable=SC1090
 source "${WORKSPACE}/install/setup.bash"
+set -u
+
 export ROS_DOMAIN_ID ROS_LOCALHOST_ONLY RMW_IMPLEMENTATION ROS_DISCOVERY_SERVER
 export FASTRTPS_DEFAULT_PROFILES_FILE
 
