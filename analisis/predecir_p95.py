@@ -4,14 +4,10 @@
 # RETO DEL BRAZO 2 — EL TURNO DEL BRAZO
 # Grupo 7 · Sección S003
 #
-# Encargados de la evidencia y validación del Ítem 3:
-#   - Anahi Cortez Chinchay
-#   - Ramirez Quevedo Karen Noelia
-#   - Sebastian Pedro Aguirre Acosta
-#   - Vara Vargas Valentino Uziel
+# Ítem 3
+# Encargada: Anahi Cortez Chinchay (Anahi)
 #
-# Esta cabecera identifica responsables de ejecución/validación, no pretende
-# atribuir al grupo el andamiaje base entregado por el curso.
+# Cabecera de responsabilidad del ítem. El andamiaje base corresponde al curso.
 # =============================================================================
 """Predice la espera por política ANTES de medir (simulación, sin ROS ni robot).
 
