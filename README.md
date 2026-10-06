@@ -59,7 +59,16 @@ Estos valores deben revisarse si cambia la Jetson, el número de equipo o la red
 
 ## Evidencia del ítem 3
 
-Las corridas válidas documentadas fueron `fifo_bag_ok` y `prioridad_bag_ok`. Las primeras capturas que contenían únicamente `/rosout` fueron descartadas. Antes de grabar, `scripts/record_bag.sh` comprueba que estén presentes `/arm/queue_state`, `/joint_states` y `/rosout`.
+La evidencia validada extraída de `ITEM3.zip` está documentada en:
+
+- [`evidencia/item3/README.md`](evidencia/item3/README.md)
+- [`evidencia/item3/metricas_resultados.txt`](evidencia/item3/metricas_resultados.txt)
+- [`evidencia/item3/resumen_validacion.csv`](evidencia/item3/resumen_validacion.csv)
+- [`evidencia/item3/manifest_sha256.txt`](evidencia/item3/manifest_sha256.txt)
+
+Las corridas válidas fueron `fifo_bag_ok` y `prioridad_bag_ok`. Las primeras capturas que contenían únicamente `/rosout` fueron descartadas. Antes de grabar, `scripts/record_bag.sh` comprueba que estén presentes `/arm/queue_state`, `/joint_states` y `/rosout`.
+
+Los resultados validados muestran 4 goals aceptados, **0 rechazados y 4 completados** en ambas políticas. FIFO obtuvo 2.37 s de espera media y P95 de 3.00 s; prioridad estática obtuvo 3.60 s y P95 de 5.19 s.
 
 ## Estado del repositorio
 
