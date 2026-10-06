@@ -20,6 +20,12 @@ if [[ ! -f "/opt/ros/${ROS_DISTRO}/setup.bash" ]]; then
   return 3 2>/dev/null || exit 3
 fi
 
+case "$-" in
+  *u*) _rb2_had_nounset=1 ;;
+  *)   _rb2_had_nounset=0 ;;
+esac
+
+set +u
 # shellcheck disable=SC1090
 source "/opt/ros/${ROS_DISTRO}/setup.bash"
 
@@ -28,12 +34,15 @@ if [[ -f "${WORKSPACE}/install/setup.bash" ]]; then
   source "${WORKSPACE}/install/setup.bash"
 fi
 
+if [[ ${_rb2_had_nounset} -eq 1 ]]; then
+  set -u
+fi
+
 export ROS_DOMAIN_ID ROS_LOCALHOST_ONLY RMW_IMPLEMENTATION ROS_DISCOVERY_SERVER
 export FASTRTPS_DEFAULT_PROFILES_FILE
 
 if [[ ! -f "${FASTRTPS_DEFAULT_PROFILES_FILE}" ]]; then
   echo "[AVISO] No existe FASTRTPS_DEFAULT_PROFILES_FILE=${FASTRTPS_DEFAULT_PROFILES_FILE}" >&2
-  echo "Copia el XML correcto antes de probar discovery." >&2
 fi
 
-unset _rb2_script_dir _rb2_root _rb2_cfg
+unset _rb2_script_dir _rb2_root _rb2_cfg _rb2_had_nounset
