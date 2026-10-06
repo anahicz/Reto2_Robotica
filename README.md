@@ -25,45 +25,46 @@ Responsables oficiales:
 
 La atribución completa está en `docs/AUTORIA_Y_RESPONSABLES.md`.
 
-## Preparar una Raspberry nueva
+## Raspberry nueva: instalación corta
 
-La Raspberry debe tener Ubuntu/ROS 2 Humble y Git. El proyecto se prepara con dos pasos:
+Requisitos previos: Ubuntu/ROS 2 Humble y Git.
 
 ```bash
 git clone https://github.com/anahicz/Reto2_Robotica.git
 cd Reto2_Robotica && bash scripts/bootstrap_raspberry.sh
 ```
 
-El script:
+Como el repositorio es privado, el primer `clone` puede pedir autenticación de GitHub. No guardes tokens en una máquina compartida.
+
+El bootstrap:
 1. crea `config/network.env` si no existe;
 2. copia el XML FastDDS real a `$HOME/super_client_configuration_file.xml`;
 3. instala `arm_broker_interfaces` en `~/ros2_ws/src`;
 4. compila la interfaz;
-5. reinicia el daemon de ROS 2;
-6. comprueba que la interfaz esté disponible.
+5. reinicia el daemon;
+6. verifica que `MoveArm` esté disponible.
 
-Si el repositorio ya está clonado:
+Si el repo ya existe:
 
 ```bash
 cd ~/Reto2_Robotica
 bash scripts/sync_raspberry.sh
 ```
 
-Para cargar el entorno en una terminal:
+Cada terminal nueva:
 
 ```bash
+cd ~/Reto2_Robotica
 source scripts/ros_env.sh
 ```
 
-Para verificar discovery:
+Diagnóstico:
 
 ```bash
 bash scripts/check_client.sh
 ```
 
 ## Configuración validada
-
-La corrida documentada usó:
 
 ```text
 ROS_DOMAIN_ID=112
@@ -72,7 +73,7 @@ RMW_IMPLEMENTATION=rmw_fastrtps_cpp
 ROS_DISCOVERY_SERVER=172.51.1.17:11811
 ```
 
-El XML usado realmente está versionado en `config/super_client_configuration_file.xml`.
+El XML usado en laboratorio está en `config/super_client_configuration_file.xml`.
 
 ## Política de prioridad
 
@@ -83,16 +84,17 @@ prioridad efectiva = prioridad + espera_s / tau
 tau = 8.0 s
 ```
 
-Por tanto, la política `prioridad` implementada es **prioridad con envejecimiento (aging)**. En la corrida observada las esperas fueron cortas respecto a `tau`, por lo que el orden coincidió con prioridad numérica descendente, pero la implementación activa sí incluía aging.
+Por tanto, `politica:=prioridad` corresponde a **prioridad con envejecimiento (aging)**. En la muestra observada el orden coincidió con prioridad numérica descendente porque las esperas fueron cortas respecto a `tau`.
 
 ## Estado
 
-Ya están versionados:
-- código final de `arm_broker`;
-- `arm_broker_interfaces`;
-- código de Ítems 1 y 4 extraído del informe;
-- XML FastDDS real;
-- evidencias de rechazos del Ítem 2;
-- bags, CSV, métricas, figura y verificación de exclusión del Ítem 3.
+Versionado:
+- código final de `arm_broker` e interfaces;
+- código de Ítems 1 y 4;
+- XML FastDDS;
+- rechazos del Ítem 2;
+- bags, CSV, métricas, figura y exclusión mutua del Ítem 3.
 
-Pendientes de entrega externa: video de 3 minutos y, si el docente la exige, repetición con la traza CSV oficial.
+Pendientes externos:
+- video de 3 minutos: subir a `ITEMS/item3/evidencia/video/`;
+- repetir con la traza CSV oficial solo si la rúbrica la exige y está disponible.
