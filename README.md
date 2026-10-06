@@ -6,12 +6,12 @@ Repositorio del RB-2 de Robótica: cinemática directa y acceso concurrente al J
 
 El repositorio distingue explícitamente entre el **andamiaje base entregado por el curso** y los bloques implementados por el equipo.
 
-Responsables de los niveles evaluados:
+Responsables oficiales por ítem:
 
-- **Sebastian Pedro Aguirre Acosta:** `fk.py` — cinemática directa y validación geométrica.
-- **Anahi Cortez Chinchay:** `politicas.py` — políticas de planificación.
-- **Ramirez Quevedo Karen Noelia:** `broker.py` — admisión de metas.
-- **Vara Vargas Valentino Uziel:** `broker.py` — worker, ejecución y exclusión mutua.
+- **Ítem 1 — Encargado:** Vara Vargas Valentino Uziel (Valentino)
+- **Ítem 2 — Encargada:** Ramirez Quevedo Karen Noelia (Karen)
+- **Ítem 3 — Encargada:** Anahi Cortez Chinchay (Anahi)
+- **Ítem 4 — Encargado:** Sebastian Pedro Aguirre Acosta (Sebastián)
 
 La matriz completa de atribución y las cabeceras que deben conservarse en el código final están en [`docs/AUTORIA_Y_RESPONSABLES.md`](docs/AUTORIA_Y_RESPONSABLES.md).
 
