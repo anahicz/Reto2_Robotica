@@ -1,4 +1,18 @@
 #!/usr/bin/env python3
+# =============================================================================
+# UNIVERSIDAD ESAN · ROBÓTICA (08079)
+# RETO DEL BRAZO 2 — EL TURNO DEL BRAZO
+# Grupo 7 · Sección S003
+#
+# Encargados de la evidencia y validación del Ítem 3:
+#   - Anahi Cortez Chinchay
+#   - Ramirez Quevedo Karen Noelia
+#   - Sebastian Pedro Aguirre Acosta
+#   - Vara Vargas Valentino Uziel
+#
+# Esta cabecera identifica responsables de ejecución/validación, no pretende
+# atribuir al grupo el andamiaje base entregado por el curso.
+# =============================================================================
 """Verifica la exclusión mutua a partir de los CSV exportados del bag.
 
     python3 verificar_exclusion.py fifo/
