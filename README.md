@@ -2,6 +2,19 @@
 
 Repositorio del RB-2 de Robótica: cinemática directa y acceso concurrente al JetCobot con ROS 2.
 
+## Autoría y responsables — Grupo 7 · Sección S003
+
+El repositorio distingue explícitamente entre el **andamiaje base entregado por el curso** y los bloques implementados por el equipo.
+
+Responsables de los niveles evaluados:
+
+- **Sebastian Pedro Aguirre Acosta:** `fk.py` — cinemática directa y validación geométrica.
+- **Anahi Cortez Chinchay:** `politicas.py` — políticas de planificación.
+- **Ramirez Quevedo Karen Noelia:** `broker.py` — admisión de metas.
+- **Vara Vargas Valentino Uziel:** `broker.py` — worker, ejecución y exclusión mutua.
+
+La matriz completa de atribución y las cabeceras que deben conservarse en el código final están en [`docs/AUTORIA_Y_RESPONSABLES.md`](docs/AUTORIA_Y_RESPONSABLES.md).
+
 ## Ejecución rápida en una Raspberry nueva
 
 ```bash
