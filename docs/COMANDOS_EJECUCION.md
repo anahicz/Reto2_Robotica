@@ -285,3 +285,90 @@ colcon build --packages-select arm_broker_interfaces
 8. Grabar FIFO y prioridad por separado.
 9. Ejecutar `ros2 bag info` y comprobar que ambos tópicos tengan mensajes.
 10. Exportar CSV, ejecutar métricas y guardar `metricas_resultados.txt` + `comparacion_politicas.png`.
+
+## 12. Comandos confirmados del desarrollo real
+
+### Corregir FastDDS si el XML todavía apunta a localhost
+
+```bash
+cp /home/alumno01/super_client_configuration_file.xml \
+   /home/alumno01/super_client_configuration_file.xml.bak
+
+sed -i 's/127\.0\.0\.1/172.51.1.17/g' \
+  /home/alumno01/super_client_configuration_file.xml
+
+grep -n "address\|port" ~/super_client_configuration_file.xml
+ping -c 3 172.51.1.17
+```
+
+### Ejecutar el broker con la política correcta
+
+FIFO:
+
+```bash
+ros2 run arm_broker broker --ros-args -p politica:=fifo
+```
+
+Prioridad estática:
+
+```bash
+ros2 run arm_broker broker --ros-args -p politica:=prioridad
+```
+
+### Verificar QueueState
+
+```bash
+ros2 topic type /arm/queue_state
+ros2 topic echo /arm/queue_state --once
+ros2 topic hz /arm/queue_state
+```
+
+El tipo final esperado es:
+
+```text
+arm_broker_interfaces/msg/QueueState
+```
+
+y la frecuencia observada durante el desarrollo fue cercana a 5 Hz.
+
+### Verificar publicadores de joint_states
+
+```bash
+ros2 topic info /joint_states -v
+```
+
+Conservar esta salida como evidencia del publicador/controlador efectivo.
+
+### Recuperar el código final desde la Jetson
+
+Antes de cerrar GitHub, copiar **las versiones reales usadas en las pruebas**, no las originales del ZIP:
+
+```bash
+mkdir -p ~/Reto2_Robotica/src
+
+cp -r ~/ros2_ws/src/kit_reto_alumno/src/arm_broker \
+      ~/Reto2_Robotica/src/
+
+cp -r ~/ros2_ws/src/kit_reto_alumno/src/arm_broker_interfaces \
+      ~/Reto2_Robotica/src/
+```
+
+Y verificar:
+
+```bash
+grep -Rni "NotImplementedError" \
+  ~/Reto2_Robotica/src/arm_broker
+
+grep -n "politicas" \
+  ~/Reto2_Robotica/src/arm_broker/arm_broker/broker.py
+```
+
+## 13. Qué representa realmente cada política medida
+
+Las corridas finales registradas con `fifo_bag_ok` y `prioridad_bag_ok` corresponden a:
+
+```text
+FIFO vs prioridad estática
+```
+
+Aunque durante el desarrollo se trabajó una idea de prioridad con envejecimiento y `tau = 8.0 s`, **esas métricas no se deben presentar como mediciones de aging**.
