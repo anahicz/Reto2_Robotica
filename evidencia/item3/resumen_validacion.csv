@@ -1,0 +1,3 @@
+politica,duracion_s,mensajes,joint_states,queue_state,rosout,queue_state_hz,total_accepted,total_rejected,total_completed,espera_media_s,p95_s,espera_max_s,jain,max_queue
+FIFO,40.056319809,622,396,198,28,4.943,4,0,4,2.37,3.00,3.00,1.000,2
+Prioridad_estatica,24.420331763,384,237,119,28,4.873,4,0,4,3.60,5.19,5.19,1.000,3
