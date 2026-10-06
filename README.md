@@ -8,10 +8,10 @@ El repositorio distingue explícitamente entre el **andamiaje base entregado por
 
 Responsables oficiales por ítem:
 
-- **Ítem 1 — Encargado:** Vara Vargas Valentino Uziel (Valentino)
-- **Ítem 2 — Encargada:** Ramirez Quevedo Karen Noelia (Karen)
-- **Ítem 3 — Encargada:** Anahi Cortez Chinchay (Anahi)
-- **Ítem 4 — Encargado:** Sebastian Pedro Aguirre Acosta (Sebastián)
+- **Ítem 1 — Encargado:** Vara Vargas Valentino Uziel
+- **Ítem 2 — Encargada:** Ramirez Quevedo Karen Noelia
+- **Ítem 3 — Encargada:** Anahi Cortez Chinchay
+- **Ítem 4 — Encargado:** Sebastian Pedro Aguirre Acosta
 
 La matriz completa de atribución y las cabeceras que deben conservarse en el código final están en [`docs/AUTORIA_Y_RESPONSABLES.md`](docs/AUTORIA_Y_RESPONSABLES.md).
 
